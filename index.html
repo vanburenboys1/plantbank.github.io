@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            background-image: url("https://cdn.pixabay.com/photo/2020/10/02/16/57/leaves-5621681_960_720.jpg");
+            background-color: #cccccc;
+        }
+
+        .jumbotron {
+            width: 70%;
+            height: 5%;
+            margin: auto;
+            margin-top: 3%;
+            text-align: center;
+            background-color: black;
+            color: #cccccc;
+            margin-bottom: 5%;
+            opacity: 0.9;
+        }
+
+        .list-group {
+            margin-top: 5%;
+            margin-bottom: 5%;
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+        #header {
+            margin: auto;
+            text-align: center;
+            background-color: black;
+            color: white;
+            width: 40%;
+            opacity: 0.9;
+        }
+
+        #top_item {
+            font-size: large;
+            text-align: center;
+        }
+
+        .form-group {
+            background-color: black;
+            width: 60%;
+            margin: auto;
+            color: white;
+            margin-top: 5%;
+            opacity: 1;
+            font-size: larger;
+            text-align: center;
+            color: white;
+        }
+
+        .table {
+            background-color: black;
+            color: white;
+            width: 95%;
+            margin: auto;
+            margin-bottom: 5%;
+        }
+
+        .btn-success {
+            color: #000;
+            font-size: 100%;
+            margin: auto;
+            float: right;
+            margin-right: 5%;
+        }
+
+        .list-group-item {
+            height: 100%;
+            line-height: 30px;
+            color: white;
+            background-color: black;
+        }
+
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+
+        th{
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="jumbotron">
+        <h1>Welcome to the jungle.</h1>
+        <p>Build your plant bank below!</p>
+    </div>
+
+    <table class="table" id="plantTable">
+        <thead>
+            <tr>
+                <th scope="col">Plant name</th>
+                <th scope="col">Plant ID</th>
+                <th scope="col">Water Frequency</th>
+                <th scope="col">Photo</th>
+                <th scope="col">Last Watered</th>
+                <th scope="col">Water Status</th>
+                <th scope="col">Buttons</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- <tr>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td><img src="https://perenual.com/storage/species_image/2_abies_alba_pyramidalis/og/49255769768_df55596553_b.jpg"
+                        alt="" border=3 height=100 width=100></img></td>
+                <td>Otto</td>
+            </tr>
+            <tr>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                <td><img src="https://perenual.com/storage/species_image/2_abies_alba_pyramidalis/medium/49255769768_df55596553_b.jpg"
+                        alt="" border=3 height=100 width=100></img></td>
+                <td>Otto</td>
+            </tr> -->
+        </tbody>
+    </table>
+
+
+    <!-- <h1 id="header">Pick your plant below!</h1> -->
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Seach your plant</label>
+        <input type="text" onkeyup="filter()" class="form-control" id="plantSearch" aria-describedby="plantSearch"
+            placeholder="Search your plant">
+        <small id="emailHelp" class="form-text text-muted">If you cant ID your plant use the snapchat filter!</small>
+    </div>
+
+    <ul class="list-group" id="plantList">
+        <li class="list-group-item" id="top_item">PLANT LIST</li>
+        <!-- <li class="list-group-item">Dapibus ac facilisis in<button class="btn btn-success">Add to Plant Bank</button>
+        </li>
+        <li class="list-group-item">Morbi leo risus<button class="btn btn-success">Add to Plant Bank</button></li>
+        <li class="list-group-item">Porta ac consectetur ac<button class="btn btn-success">Add to Plant Bank</button>
+        </li>
+        <li class="list-group-item">Vestibulum at eros<button class="btn btn-success">Add to Plant Bank</button></li> -->
+    </ul>
+
+
+
+    <script>
+
+        test();
+
+        function addListner() {
+            let butt = document.getElementsByClassName("btn btn-success");
+            butt[0].addEventListener('click', plantSelected);
+            for (let i = 0; i < butt.length; i++) {
+                butt[i].addEventListener('click', plantSelected);
+            }
+        }
+
+        function filter() {
+            let filtVal = document.getElementById("plantSearch").value.toUpperCase();
+            let ul = document.getElementById("plantList");
+            let li = ul.getElementsByTagName("li");
+
+            console.log(filtVal);
+
+            for (let i = 1; i < li.length; i++) {
+                if (li[i].innerHTML.toUpperCase().indexOf(filtVal) == -1) {
+                    li[i].style.display = "none";
+                } else {
+                    li[i].style.display = "";
+                }
+            }
+        }
+
+        function plantSelected() {
+            let name = this.parentNode.innerHTML;
+            let plantName = name.slice(0, name.indexOf("<"));
+            console.log(plantName);
+            let id = plantName.slice(plantName.indexOf("(") + 1, plantName.indexOf(")"))
+            console.log(id);
+            //id = 2;
+
+
+            //call API to get details on plant
+            const key = `sk-dZlT63f138bce0a7075`;
+            let url = `https://perenual.com/api/species/details/${id}?key=${key}`;
+            fetch(url).then(res => res.json())
+                .then(plantDat => {
+                    buildTable(plantDat, plantName, id)
+                })
+
+        }
+        //build table for button clicked
+        function buildTable(plantDat, plantName, id) {
+            let tableBody = document.getElementById("plantTable").getElementsByTagName("tbody")[0];
+            let row = tableBody.insertRow();
+            console.log(plantDat);
+            let watering = document.createTextNode(plantDat["watering"]);
+            let nameToAdd = document.createTextNode(plantName);
+            let idToAdd = document.createTextNode(id);
+            let img = document.createElement("img");
+            img.className = "center";
+            let butt = document.createElement("button");
+            butt.innerHTML = "Delete Plant";
+            butt.className = "btn btn-danger";
+            butt.onclick = deleteRow;
+
+            img.src = plantDat["default_image"]["original_url"];
+            console.log(plantDat["default_image"]["original_url"]);
+            img.style.height = "10%"
+            img.style.width = "100%"
+
+            row.insertCell().appendChild(nameToAdd);
+            row.insertCell().appendChild(idToAdd);
+            row.insertCell().appendChild(watering);
+            row.insertCell().appendChild(img);
+            row.insertCell().appendChild(document.createTextNode("placeholder"));
+            row.insertCell().appendChild(document.createTextNode("placeholder"));
+            row.insertCell().appendChild(butt);
+        }
+
+        function deleteRow() {
+            let i = this.parentNode.parentNode.rowIndex;
+            document.getElementById("plantTable").deleteRow(i);
+
+        }
+
+        //builds plant list
+        function test() {
+            //200pages
+            const key = `sk-dZlT63f138bce0a7075`;
+            // let url = 'https://perenual.com/api/species-list?page=1&key=';
+
+            for (let page = 1; page < 2; page++) {
+                let url = `https://perenual.com/api/species-list?page=${page}&key=`;
+                fetch(url + key)
+                    .then(response => response.json())
+                    .then(plantData => playData(plantData))
+                    .catch(err => console.log(err));
+            }
+        }
+
+        //build table for real
+        function playData(plantData) {
+            //console.log(plantData);
+            let plantDataArray = plantData["data"];
+            //console.log(plantDataArray);
+            plantDataArray.forEach(plant => {
+                let node = document.createElement('li');
+                let subNode = document.createElement('button');
+                subNode.innerHTML = "Add to Plant Bank";
+                subNode.className = "btn btn-success";
+                node.className = "list-group-item";
+                let text = `${plant["common_name"]} (${plant["id"]})`;
+                node.appendChild(document.createTextNode(text));
+                document.querySelector('ul').appendChild(node).appendChild(subNode);
+                addListner();
+            })
+        }
+
+    </script>
+</body>
+
+</html>
